@@ -1,7 +1,10 @@
 using Distributions
 using Counters
 
-
+"""
+`binom_rv(n,p)` generates a single random value according to
+the binomial distribution `B(n,p)`.
+"""
 binom_rv(n::Int,p::Real=0.5) = rand(Binomial(n,p))
 
 """

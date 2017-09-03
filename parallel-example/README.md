@@ -23,6 +23,5 @@ computation.
 
 At the end, the result is displayed in a histogram saved in a
 file named `binomial.pdf`. The result looks like this:
-<p align="center">
 ![](binomial.png)
-</p>
+

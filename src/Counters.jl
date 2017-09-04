@@ -65,10 +65,7 @@ function showall{T}(io::IO, c::Counter{T})
 end
 
 function getindex{T}(c::Counter{T}, x::T)
-  try
-    return c.data[x]
-  end
-  return 0
+  return get(c.data,x,0)
 end
 
 """
@@ -97,7 +94,7 @@ function nnz(c::Counter)
   return amt
 end
 
-setindex!{T}(c::Counter{T}, val::Int, k::T) = c.data[k] = val
+setindex!{T}(c::Counter{T}, val::Int, k::T) = c.data[k] = val>0 ? val : 0
 
 function =={T}(c::Counter{T}, d::Counter{T})
   for k in keys(c)

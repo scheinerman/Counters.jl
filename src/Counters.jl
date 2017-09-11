@@ -2,7 +2,7 @@ module Counters
 
 export Counter, counter, clean!, incr!, mean, csv_print
 
-import Base: show, length, getindex, sum, keys, (+), (==)
+import Base: show, length, getindex, sum, keys, (+), (==), hash
 import Base: showall, setindex!, nnz, mean, collect, start, done, next
 
 """
@@ -228,5 +228,14 @@ end
 
 counter(S::Base.AbstractSet) = counter(collect(S))
 
+
+"""
+Performing `hash` on a `Counter` will first apply `clean!` to the
+`Counter` in order that equal `Counter` objects hash the same.
+"""
+function hash(C::Counter, h::UInt64 = UInt64(0))
+    clean!(C)
+    return hash(C.data,h)
+end
 
 end # module

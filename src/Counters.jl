@@ -17,9 +17,9 @@ It is safe to retrieve the count of an object never encountered, e.g.,
 Counts may be assigned with `c[key]=amount`, but the more likely use
 case is using `c[key]+=1` to count each time `key` is encountered.
 """
-type Counter{T<:Any} <: Associative{T,Int}
+struct Counter{T<:Any} <: Associative{T,Int}
   data::Dict{T,Int}
-  function Counter()
+  function Counter{T}() where T
     d = Dict{T,Int}()
     C = new(d)
   end

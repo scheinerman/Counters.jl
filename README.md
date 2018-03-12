@@ -40,7 +40,7 @@ the more likely use case is `c["bravo"]+=1` invoked each
 time a value, such as `"bravo"` is encountered.
 
 
-#### Counting the elements of a list
+### Counting the elements of a list
 
 The function `counter` (lowercase 'c') counts the element of a list/array
 or set. The multiplicity of an element is the number of times it
@@ -62,14 +62,14 @@ SimpleTools.Counter{Float64} with 2 entries:
   1.0 => 3
 ```
 
-#### Addition of counters
+### Addition of counters
 
 If `c` and `d` are counters (of the same type of object) their sum
 `c+d` creates a new counter by adding the values in `c` and `d`. That
 is, if `a=c+d` and `k` is any key, then `a[k]` equals `c[k]+d[k]`.
 
 
-#### Incrementing
+### Incrementing
 
 To increment the count of an item `x` in a counter `c` we may either
 use `c[x]+=1` or the increment function like this: `incr!(c,x)`.
@@ -129,7 +129,7 @@ Counter{Int64} with these nonzero values:
 ```
 
 
-#### More functions
+### More functions
 
 * `sum(c)` returns the sum of the values in `c`; that is, the total
 of all the counts.
@@ -177,7 +177,7 @@ julia> collect(keys(C))
   5
 ```
 
-#### Average value
+### Average value
 
 If the objects counted in `C` are numbers, then we compute the weighted
 average of those numbers with `mean(C)`.
@@ -195,13 +195,21 @@ julia> mean(C)
 2.7
 ```
 
-#### It's `Associative`
+### Hashing
+
+`hash(C::Counter)` returns a hash value for the `C`. Note that
+`clean!` is applied to `C` before computing the hash. This is
+done to ensure that equal counters give the same hash value.
+
+May also be invoked as `hash(C::Counter, h::Uint)`.
+
+### It's `Associative`
 
 A `Counter` is a subtype of `Associative` and therefore we can
 use methods such as `keys` and/or `values` to get iterators to
 those items.
 
-#### CSV Printing
+### CSV Printing
 The function `csv_print` writes a `Counter` to the screen in
 comma-separated format. This can be readily used for importing
 into a spreadsheet.
@@ -222,7 +230,7 @@ julia> csv_print(C)
 
 
 
-#### Counting in parallel
+### Counting in parallel
 
 See the `parallel-example` directory for an illustration of how to
 use `Counters` in multiple parallel processes.

@@ -36,6 +36,7 @@ next(c::Counter,s) = next(c.data,s)
 """
 `length(c::Counter)` gives the number of entries monitored
 by the Counter. Conceivably, some may have value `0`.
+See also: `nnz`.
 """
 length(c::Counter) = length(c.data)
 

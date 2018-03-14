@@ -36,6 +36,7 @@ next(c::Counter,s) = next(c.data,s)
 """
 `length(c::Counter)` gives the number of entries monitored
 by the Counter. Conceivably, some may have value `0`.
+
 See also: `nnz`.
 """
 length(c::Counter) = length(c.data)
@@ -84,6 +85,8 @@ sum(c::Counter) = sum(values(c.data))
 """
 `nnz(c::Counter)` gives the number of keys in
 the `Counter` with nonzero value.
+
+See also: `length`.
 """
 function nnz(c::Counter)
   amt::Int = 0

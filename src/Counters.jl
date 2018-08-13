@@ -3,7 +3,10 @@ module Counters
 export Counter, counter, clean!, incr!, mean, csv_print
 
 import Base: show, length, getindex, sum, keys, (+), (==), hash
-import Base: showall, setindex!, nnz, mean, collect, start, done, next
+import Base: showall, setindex!, collect, start, done, next
+
+import SparseArrays: nnz
+import Statistics: mean
 
 """
 A `Counter` is a device for keeping a count of how often we observe
@@ -17,7 +20,7 @@ It is safe to retrieve the count of an object never encountered, e.g.,
 Counts may be assigned with `c[key]=amount`, but the more likely use
 case is using `c[key]+=1` to count each time `key` is encountered.
 """
-struct Counter{T<:Any} <: Associative{T,Int}
+struct Counter{T<:Any} <: AbstractDict{T,Int}
   data::Dict{T,Int}
   function Counter{T}() where T
     d = Dict{T,Int}()

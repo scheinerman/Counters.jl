@@ -41,7 +41,7 @@ See also: `nnz`.
 """
 length(c::Counter) = length(c.data)
 
-function show{T}(io::IO, c::Counter{T})
+function show(io::IO, c::Counter{T}) where T
   n = length(c.data)
   word = ifelse(n==1, "entry", "entries")
   msg = "with $n $word"
@@ -52,7 +52,7 @@ end
 `showall(c::Counter)` displays all the objects
 held in the Counter and their counts.
 """
-function showall{T}(io::IO, c::Counter{T})
+function showall(io::IO, c::Counter{T}) where T
   println(io,"Counter{$T} with these nonzero values:")
   klist = collect(keys(c))
   try
@@ -68,7 +68,7 @@ function showall{T}(io::IO, c::Counter{T})
   end
 end
 
-function getindex{T}(c::Counter{T}, x::T)
+function getindex(c::Counter{T}, x::T) where T
   return get(c.data,x,0)
 end
 
@@ -100,9 +100,9 @@ function nnz(c::Counter)
   return amt
 end
 
-setindex!{T}(c::Counter{T}, val::Int, k::T) = c.data[k] = val>0 ? val : 0
+setindex!(c::Counter{T}, val::Int, k::T) where T = c.data[k] = val>0 ? val : 0
 
-function =={T}(c::Counter{T}, d::Counter{T})
+function ==(c::Counter{T}, d::Counter{T}) where T
   for k in keys(c)
     if c[k] != d[k]
       return false
@@ -118,7 +118,7 @@ function =={T}(c::Counter{T}, d::Counter{T})
   return true
 end
 
-isequal{T}(c::Counter{T},d::Counter{T}) = c==d
+isequal(c::Counter{T},d::Counter{T}) where T = c==d
 
 """
 `clean!(c)` removes all keys from `c` whose value is `0`.
@@ -126,7 +126,7 @@ Generally, it's not necessary to invoke this unless one
 suspects that `c` contains *a lot* of keys associated with
 a zero value.
 """
-function clean!{T}(c::Counter{T})
+function clean!(c::Counter{T}) where T
   for k in keys(c)
     if c[k] == 0
       delete!(c.data,k)
@@ -145,7 +145,7 @@ of keys and we increment the count for each element in `items`.
 `incr!(c,d)` where `c` and `d` are counters will increment `c` by
 the amounts held in `d`.
 """
-incr!{T}(c::Counter{T}, x::T) = c[x] += 1
+incr!(c::Counter{T}, x::T) where T = c[x] += 1
 
 function incr!(c::Counter, items)
   for x in items
@@ -153,7 +153,7 @@ function incr!(c::Counter, items)
   end
 end
 
-function incr!{T}(c::Counter{T},d::Counter{T})
+function incr!(c::Counter{T},d::Counter{T}) where T
   for k in keys(d)
     c[k] += d[k]
   end
@@ -164,7 +164,7 @@ end
 If `c` and `d` are `Counter`s, then `c+d` creates a new `Counter`
 in which the count associated with an object `x` is `c[x]+d[x]`.
 """
-function (+){T}(c::Counter{T}, d::Counter{T})
+function (+)(c::Counter{T}, d::Counter{T}) where T
   result = deepcopy(c)
   incr!(result,d)
   return result
@@ -174,7 +174,7 @@ end
 `collect(C)` for a `Counter` returns an array containing the elements of `C`
 each repeated according to its multiplicty.
 """
-function collect{T}(c::Counter{T})
+function collect(c::Counter{T}) where T
   result = Vector{T}(sum(c))
   idx = 0
   for k in keys(c)
@@ -194,7 +194,7 @@ end
 Of course, the counted objects must be a `Number`; their multiplicity
 (weight) in the average is determined by their `C`-value.
 """
-function mean{T<:Number}(C::Counter{T})
+function mean(C::Counter{T}) where T<:Number
   total = zero(T)
   for k in keys(C)
     total += k * C[k]
@@ -210,6 +210,7 @@ function csv_print(C::Counter)
   klist = collect(keys(C))
   try
     sort!(klist)
+  catch
   end
   for k in klist
     println("$k, $(C[k])")

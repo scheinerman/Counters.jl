@@ -1,5 +1,5 @@
 using Counters
-using Base.Test
+using Test
 
 # write your own tests here
 @test 1 == 1
@@ -33,6 +33,6 @@ clean!(d)
 
 X = Set(1:3)
 c = counter(X)
-Y = IntSet(1:3)
+Y = BitSet(1:3)
 d = counter(Y)
 @test c==d

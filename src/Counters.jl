@@ -5,6 +5,7 @@ export Counter, counter, clean!, incr!, mean, csv_print
 import Base: show, length, getindex, sum, keys, (+), (==), hash
 import Base: showall, setindex!, collect, start, done, next
 
+using SparseArrays, Statistics
 import SparseArrays: nnz
 import Statistics: mean
 

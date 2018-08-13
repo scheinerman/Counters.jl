@@ -57,6 +57,8 @@ function showall{T}(io::IO, c::Counter{T})
   klist = collect(keys(c))
   try
     sort!(klist)
+  catch
+    1+1 # no action required if fail to sort
   end
 
   for k in klist

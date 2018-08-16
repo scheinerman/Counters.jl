@@ -3,11 +3,13 @@ module Counters
 export Counter, counter, clean!, incr!, mean, csv_print
 
 import Base: show, length, getindex, sum, keys, (+), (==), hash
-import Base: showall, setindex!, collect, start, done, next
+import Base: showall, setindex!, collect
+import Base: iterate
+#import Base: start, done, next, iterate
 
 using SparseArrays, Statistics
-import SparseArrays: nnz
-import Statistics: mean
+#import SparseArrays: nnz
+#import Statistics: mean
 
 """
 A `Counter` is a device for keeping a count of how often we observe
@@ -32,10 +34,15 @@ end
 Counter() = Counter{Any}()
 
 # These items enable this to satisfy the Associative properties
+#
+# start(c::Counter) = start(c.data)
+# done(c::Counter,s) = done(c.data,s)
+# next(c::Counter,s) = next(c.data,s)
 
-start(c::Counter) = start(c.data)
-done(c::Counter,s) = done(c.data,s)
-next(c::Counter,s) = next(c.data,s)
+iterate(C::Counter{T}) where T = iterate(keys(C.data))
+iterate(C::Counter{T}, s::Int) where T = iterate(keys(C.data), s)
+
+
 
 """
 `length(c::Counter)` gives the number of entries monitored
@@ -52,6 +59,8 @@ function show(io::IO, c::Counter{T}) where T
   print(io,"Counter{$T} $msg")
 end
 
+show(c::Counter{T}) where T = show(stdout,c)
+showall(c::Counter{T}) where T = showall(stdout,c)
 """
 `showall(c::Counter)` displays all the objects
 held in the Counter and their counts.
@@ -94,7 +103,7 @@ the `Counter` with nonzero value.
 
 See also: `length`.
 """
-function nnz(c::Counter)
+function SparseArrays.nnz(c::Counter)
   amt::Int = 0
   for k in keys(c)
     if c.data[k] != 0

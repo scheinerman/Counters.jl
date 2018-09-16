@@ -3,7 +3,7 @@ module Counters
 export Counter, counter, clean!, incr!, mean, csv_print
 
 import Base: show, length, getindex, sum, keys, (+), (==), hash
-import Base: showall, setindex!, collect
+import Base:  setindex!, collect
 import Base: iterate
 #import Base: start, done, next, iterate
 
@@ -60,13 +60,11 @@ function show(io::IO, c::Counter{T}) where T
 end
 
 show(c::Counter{T}) where T = show(stdout,c)
-showall(c::Counter{T}) where T = showall(stdout,c)
-"""
-`showall(c::Counter)` displays all the objects
-held in the Counter and their counts.
-"""
-function showall(io::IO, c::Counter{T}) where T
-  println(io,"Counter{$T} with these nonzero values:")
+
+import Base.Multimedia.display
+
+function display(c::Counter{T}) where T
+  println("Counter{$T} with these nonzero values:")
   klist = collect(keys(c))
   try
     sort!(klist)
@@ -76,10 +74,12 @@ function showall(io::IO, c::Counter{T}) where T
 
   for k in klist
     if c[k] != 0
-      println(io,"$k ==> $(c.data[k])")
+      println("$k ==> $(c.data[k])")
     end
   end
 end
+
+
 
 function getindex(c::Counter{T}, x::T) where T
   return get(c.data,x,0)
@@ -188,7 +188,7 @@ end
 each repeated according to its multiplicty.
 """
 function collect(c::Counter{T}) where T
-  result = Vector{T}(sum(c))
+  result = Vector{T}(undef,sum(c))
   idx = 0
   for k in keys(c)
     m = c[k]

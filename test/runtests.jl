@@ -36,3 +36,6 @@ c = counter(X)
 Y = BitSet(1:3)
 d = counter(Y)
 @test c==d
+
+c = counter([1,1,2,3])
+@test mean(c) == 1.75

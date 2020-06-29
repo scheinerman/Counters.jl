@@ -1,12 +1,12 @@
 name = "Counters"
 uuid = "5a653867-b65e-5b16-a095-b1e26d522bbf"
+version = "0.3.0"
 
 [deps]
 SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
-Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 
 [compat]
-julia = "≥ 0.7.0"
+julia = "1"
 
 [extras]
 SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"

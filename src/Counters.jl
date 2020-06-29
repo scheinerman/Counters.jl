@@ -7,9 +7,8 @@ import Base:  setindex!, collect
 import Base: iterate
 #import Base: start, done, next, iterate
 
-using SparseArrays, Statistics
-#import SparseArrays: nnz
-#import Statistics: mean
+using SparseArrays
+export nnz
 
 """
 A `Counter` is a device for keeping a count of how often we observe

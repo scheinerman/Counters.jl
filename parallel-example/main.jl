@@ -1,3 +1,5 @@
+using Distributed
+
 @everywhere include("parallel-binomial.jl")
 using PyPlot
 
@@ -7,9 +9,8 @@ reps = 1000
 rounds = 1000
 
 println("Starting computation")
-tic()
-c = parallel_binomial_counts(n,p,reps,rounds)
-toc()
+
+@time c = parallel_binomial_counts(n,p,reps,rounds)
 
 a = minimum(keys(c))
 b = maximum(keys(c))

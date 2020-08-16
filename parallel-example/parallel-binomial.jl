@@ -1,5 +1,5 @@
 using Distributions
-using Counters
+using Counters, Distributed
 
 """
 `binom_rv(n,p)` generates a single random value according to
@@ -29,7 +29,7 @@ making `rounds` calls to `binomial_counts(n,p,reps)` and combining
 the results.
 """
 function parallel_binomial_counts(n::Int, p::Real, reps::Int, rounds::Int)
-  counts = @parallel (+) for k=1:rounds
+  counts = @distributed (+) for k=1:rounds
     binomial_counts(n,p,reps)
   end
   return counts

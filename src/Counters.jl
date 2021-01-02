@@ -5,6 +5,7 @@ export Counter, counter, clean!, incr!, mean, csv_print
 import Base: show, length, getindex, sum, keys, (+), (==), hash
 import Base:  setindex!, collect
 import Base: iterate
+import Base: values
 #import Base: start, done, next, iterate
 
 using SparseArrays
@@ -89,12 +90,17 @@ end
 """
 keys(c::Counter) = keys(c.data)
 
+"""
+`values(c::Counter)` returns an iterator for the counts in `c`.
+"""
+values(c::Counter) = values(c.data)
+
 
 """
 `sum(c::Counter)` gives the total of the counts for all things
 in `c`.
 """
-sum(c::Counter) = sum(values(c.data))
+sum(c::Counter) = sum(values(c))
 
 """
 `nnz(c::Counter)` gives the number of keys in

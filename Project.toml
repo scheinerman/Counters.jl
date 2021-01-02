@@ -1,6 +1,6 @@
 name = "Counters"
 uuid = "5a653867-b65e-5b16-a095-b1e26d522bbf"
-version = "0.3.0"
+version = "0.3.1"
 
 [deps]
 SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"

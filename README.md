@@ -3,10 +3,6 @@
 [![Build Status](https://travis-ci.com/scheinerman/Counters.jl.svg?branch=master)](https://travis-ci.com/scheinerman/Counters.jl)
 
 
-[![codecov.io](http://codecov.io/github/scheinerman/Counters.jl/coverage.svg?branch=master)](http://codecov.io/github/scheinerman/Counters.jl?branch=master)
-
-
-
 We often want to count things and a way to do that is to create a dictionary
 that maps objects to their counts. A `Counter` object simplifies that
 process. Say we want to count values of type `String`. We would
@@ -49,16 +45,11 @@ julia> A = [ "alpha", "bravo", "alpha", "gamma" ];
 
 julia> C = counter(A);
 
-julia> showall(C)
+julia> C
 Counter{String} with these nonzero values:
 alpha ==> 2
 bravo ==> 1
 gamma ==> 1
-
-julia> counter(eye(3))
-SimpleTools.Counter{Float64} with 2 entries:
-  0.0 => 6
-  1.0 => 3
 ```
 
 ### Addition of counters
@@ -80,7 +71,7 @@ multiple times, its count is incremented for each occurrence.
 
 ```julia
 julia> c = Counter{Int}()
-SimpleTools.Counter{Int64} with 0 entries
+Counter{Int64} with 0 entries
 
 julia> items = [1,2,3,4,1,2,1]
 7-element Array{Int64,1}:
@@ -94,8 +85,7 @@ julia> items = [1,2,3,4,1,2,1]
 
 julia> incr!(c,items)
 
-julia> showall(c)
-Counter{Int64} with these nonzero values:
+julia> c
 Counter{Int64} with these nonzero values:
 1 ==> 3
 2 ==> 2
@@ -110,21 +100,27 @@ that gets changed; there is no effect on the second argument `d`.
 **Note**: `incr!(c,d)` and `c += d` have the same effect, but the first
 is more efficient.
 ```julia
-julia> d = Counter{Int}();
-
-julia> d[1] = 1;;
-
-julia> d[5] = 1;
-
-julia> incr!(c,d)
-
-julia> showall(c)
+julia> c = Counter{Int}()
 Counter{Int64} with these nonzero values:
-1 ==> 4
+
+julia> items = [1,2,3,4,1,2,1]
+7-element Vector{Int64}:
+ 1
+ 2
+ 3
+ 4
+ 1
+ 2
+ 1
+
+julia> incr!(c,items)
+
+julia> c
+Counter{Int64} with these nonzero values:
+1 ==> 3
 2 ==> 2
 3 ==> 1
 4 ==> 1
-5 ==> 1
 ```
 
 
@@ -138,7 +134,7 @@ this might include objects with value `0`.
 in `c`.
 * `keys(c)` returns an iterator for the keys held by `c`.
 * `values(c)` returns an iterator for the values held by `c`.
-* `showall(c)` gives a print out of all the keys and their nonzero
+* `display(c)` gives a print out of all the keys and their nonzero
 values in `c`.
 * `clean!(c)` removes all keys from `c` whose value is `0`. This
 won't change its behavior, but will free up some memory.
@@ -149,7 +145,7 @@ using `collect`:
 
 ```julia
 julia> C = Counter{Int}()
-SimpleTools.Counter{Int64} with 0 entries
+Counter{Int64} with 0 entries
 
 julia> C[3] = 4
 4
@@ -182,7 +178,7 @@ If the objects counted in `C` are numbers, then we compute the weighted
 average of those numbers with `mean(C)`.
 ```julia
 julia> C = Counter{Int}()
-SimpleTools.Counter{Int64} with 0 entries
+Counter{Int64} with 0 entries
 
 julia> C[2] = 3
 3
@@ -214,7 +210,7 @@ comma-separated format. This can be readily used for importing
 into a spreadsheet.
 ```julia
 julia> C = Counter{Float64}()
-SimpleTools.Counter{Float64} with 0 entries
+Counter{Float64} with 0 entries
 
 julia> C[3.4]=10
 10

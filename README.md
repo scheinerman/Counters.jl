@@ -139,7 +139,9 @@ values in `c`.
 * `clean!(c)` removes all keys from `c` whose value is `0`. This
 won't change its behavior, but will free up some memory.
 
-In addition, we can convert a `Counter` into a one-dimensional
+### Listing elements
+
+We can convert a `Counter` into a one-dimensional
 array in which each element appears with its appropriate multiplicity
 using `collect`:
 
@@ -165,11 +167,17 @@ julia> collect(C)
  -2
  -2
 
-julia> collect(keys(C))
-3-element Array{Int64,1}:
+```
+
+The function `collect_by_counts` lists the elements of a `Counter` once each, 
+but in decreasing order of their counts. That is, the element with the highest count
+is first, the element with the second highest count is second, and so forth. 
+Elements whose count is zero are not listed.
+```julia
+julia> collect_by_counts(C)
+2-element Vector{Int64}:
   3
  -2
-  5
 ```
 
 ### Average value

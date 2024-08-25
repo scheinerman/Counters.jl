@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Counters · Counters</title><meta name="title" content="Counters · Counters"/><meta property="og:title" content="Counters · Counters"/><meta property="twitter:title" content="Counters · Counters"/><meta name="description" content="Documentation for Counters."/><meta property="og:description" content="Documentation for Counters."/><meta property="twitter:description" content="Documentation for Counters."/><script data-outdated-warner src="assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="assets/documenter.js"></script><script src="search_index.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href>Counters</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li class="is-active"><a class="tocitem" href>Counters</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Counting-the-elements-of-a-list"><span>Counting the elements of a list</span></a></li><li><a class="tocitem" href="#Addition-of-counters"><span>Addition of counters</span></a></li><li><a class="tocitem" href="#Incrementing"><span>Incrementing</span></a></li><li><a class="tocitem" href="#More-functions"><span>More functions</span></a></li><li><a class="tocitem" href="#Listing-elements"><span>Listing elements</span></a></li><li><a class="tocitem" href="#Average-value"><span>Average value</span></a></li><li><a class="tocitem" href="#Hashing"><span>Hashing</span></a></li><li><a class="tocitem" href="#It&#39;s-Associative"><span>It&#39;s <code>Associative</code></span></a></li><li><a class="tocitem" href="#CSV-Printing"><span>CSV Printing</span></a></li><li><a class="tocitem" href="#Counting-in-parallel"><span>Counting in parallel</span></a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Counters</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Counters</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/scheinerman/Counters.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/scheinerman/Counters.jl/blob/master/docs/src/index.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Counters"><a class="docs-heading-anchor" href="#Counters">Counters</a><a id="Counters-1"></a><a class="docs-heading-anchor-permalink" href="#Counters" title="Permalink"></a></h1><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><p>We often want to count things and a way to do that is to create a dictionary that maps objects to their counts. A <code>Counter</code> object simplifies that process. Say we want to count values of type <code>String</code>. We would create a counter for that type like this:</p><pre><code class="nohighlight hljs">julia&gt; c = Counter{String}()
+Counter{String} with 0 entries</code></pre><p>The two primary operations for a <code>Counter</code> are value increment and value retrieval. To increment the value of a counter we do this:</p><pre><code class="language-julia hljs">julia&gt; c[&quot;hello&quot;] += 1
+1</code></pre><p>To access the count, we use square brackets:</p><pre><code class="nohighlight hljs">julia&gt; c[&quot;hello&quot;]
+1
+
+julia&gt; c[&quot;bye&quot;]
+0</code></pre><p>Notice that we need not worry about whether or not a key is already known to the <code>Counter</code>. If presented with an unknown key, the <code>Counter</code> assumes its value is <code>0</code>.</p><p>A <code>Counter</code> may be assigned to like this <code>c[&quot;alpha&quot;]=4</code> but the more likely use case is <code>c[&quot;bravo&quot;]+=1</code> invoked each time a value, such as <code>&quot;bravo&quot;</code> is encountered.</p><h2 id="Counting-the-elements-of-a-list"><a class="docs-heading-anchor" href="#Counting-the-elements-of-a-list">Counting the elements of a list</a><a id="Counting-the-elements-of-a-list-1"></a><a class="docs-heading-anchor-permalink" href="#Counting-the-elements-of-a-list" title="Permalink"></a></h2><p>The function <code>counter</code> (lowercase &#39;c&#39;) counts the element of a list/array or set. The multiplicity of an element is the number of times it appears in the list.</p><pre><code class="nohighlight hljs">julia&gt; A = [ &quot;alpha&quot;, &quot;bravo&quot;, &quot;alpha&quot;, &quot;gamma&quot; ];
+
+julia&gt; C = counter(A);
+
+julia&gt; C
+Counter{String} with these nonzero values:
+alpha ==&gt; 2
+bravo ==&gt; 1
+gamma ==&gt; 1</code></pre><h2 id="Addition-of-counters"><a class="docs-heading-anchor" href="#Addition-of-counters">Addition of counters</a><a id="Addition-of-counters-1"></a><a class="docs-heading-anchor-permalink" href="#Addition-of-counters" title="Permalink"></a></h2><p>If <code>c</code> and <code>d</code> are counters (of the same type of object) their sum <code>c+d</code> creates a new counter by adding the values in <code>c</code> and <code>d</code>. That is, if <code>a=c+d</code> and <code>k</code> is any key, then <code>a[k]</code> equals <code>c[k]+d[k]</code>.</p><h2 id="Incrementing"><a class="docs-heading-anchor" href="#Incrementing">Incrementing</a><a id="Incrementing-1"></a><a class="docs-heading-anchor-permalink" href="#Incrementing" title="Permalink"></a></h2><p>To increment the count of an item <code>x</code> in a counter <code>c</code> we may either use <code>c[x]+=1</code> or the increment function like this: <code>incr!(c,x)</code>.</p><p>The increment function <code>incr!</code> is more useful for incrementing a collection of items. Use <code>incr!(c,items)</code> to add 1 to the count for each element held in <code>items</code>. If an element is present in <code>items</code> multiple times, its count is incremented for each occurrence.</p><pre><code class="nohighlight hljs">julia&gt; c = Counter{Int}()
+Counter{Int64} with 0 entries
+
+julia&gt; items = [1,2,3,4,1,2,1]
+7-element Array{Int64,1}:
+ 1
+ 2
+ 3
+ 4
+ 1
+ 2
+ 1
+
+julia&gt; incr!(c,items)
+
+julia&gt; c
+Counter{Int64} with these nonzero values:
+1 ==&gt; 3
+2 ==&gt; 2
+3 ==&gt; 1
+4 ==&gt; 1</code></pre><p>In addition, <code>incr!</code> may be used to increment one counter by the amount held in another. Note that it&#39;s the first argument <code>c</code> that gets changed; there is no effect on the second argument <code>d</code>.</p><p><strong>Note</strong>: <code>incr!(c,d)</code> and <code>c += d</code> have the same effect, but the first is more efficient.</p><pre><code class="nohighlight hljs">julia&gt; c = Counter{Int}()
+Counter{Int64} with these nonzero values:
+
+julia&gt; items = [1,2,3,4,1,2,1]
+7-element Vector{Int64}:
+ 1
+ 2
+ 3
+ 4
+ 1
+ 2
+ 1
+
+julia&gt; incr!(c,items)
+
+julia&gt; c
+Counter{Int64} with these nonzero values:
+1 ==&gt; 3
+2 ==&gt; 2
+3 ==&gt; 1
+4 ==&gt; 1</code></pre><h2 id="More-functions"><a class="docs-heading-anchor" href="#More-functions">More functions</a><a id="More-functions-1"></a><a class="docs-heading-anchor-permalink" href="#More-functions" title="Permalink"></a></h2><ul><li><code>sum(c)</code> returns the sum of the values in <code>c</code>; that is, the total</li></ul><p>of all the counts.</p><ul><li><code>length(c)</code> returns the number of values held in <code>c</code>. Note that</li></ul><p>this might include objects with value <code>0</code>.</p><ul><li><code>nnz(c)</code> returns the number of nonzero values held</li></ul><p>in <code>c</code>.</p><ul><li><code>keys(c)</code> returns an iterator for the keys held by <code>c</code>.</li><li><code>values(c)</code> returns an iterator for the values held by <code>c</code>.</li><li><code>display(c)</code> gives a print out of all the keys and their nonzero</li></ul><p>values in <code>c</code>.</p><ul><li><code>clean!(c)</code> removes all keys from <code>c</code> whose value is <code>0</code>. This</li></ul><p>won&#39;t change its behavior, but will free up some memory.</p><h2 id="Listing-elements"><a class="docs-heading-anchor" href="#Listing-elements">Listing elements</a><a id="Listing-elements-1"></a><a class="docs-heading-anchor-permalink" href="#Listing-elements" title="Permalink"></a></h2><p>We can convert a <code>Counter</code> into a one-dimensional array in which each element appears with its appropriate multiplicity using <code>collect</code>:</p><pre><code class="nohighlight hljs">julia&gt; C = Counter{Int}()
+Counter{Int64} with 0 entries
+
+julia&gt; C[3] = 4
+4
+
+julia&gt; C[5] = 0
+0
+
+julia&gt; C[-2] = 2
+2
+
+julia&gt; collect(C)
+6-element Array{Int64,1}:
+  3
+  3
+  3
+  3
+ -2
+ -2
+</code></pre><p>The function <code>collect_by_counts</code> lists the elements of a <code>Counter</code> once each,  but in decreasing order of their counts. That is, the element with the highest count is first, the element with the second highest count is second, and so forth.  Elements whose count is zero are not listed.</p><pre><code class="nohighlight hljs">julia&gt; collect_by_counts(C)
+2-element Vector{Int64}:
+  3
+ -2</code></pre><h2 id="Average-value"><a class="docs-heading-anchor" href="#Average-value">Average value</a><a id="Average-value-1"></a><a class="docs-heading-anchor-permalink" href="#Average-value" title="Permalink"></a></h2><p>If the objects counted in <code>C</code> are numbers, then we compute the weighted average of those numbers with <code>mean(C)</code>.</p><pre><code class="nohighlight hljs">julia&gt; C = Counter{Int}()
+Counter{Int64} with 0 entries
+
+julia&gt; C[2] = 3
+3
+
+julia&gt; C[3] = 7
+7
+
+julia&gt; mean(C)
+2.7</code></pre><h2 id="Hashing"><a class="docs-heading-anchor" href="#Hashing">Hashing</a><a id="Hashing-1"></a><a class="docs-heading-anchor-permalink" href="#Hashing" title="Permalink"></a></h2><p><code>hash(C::Counter)</code> returns a hash value for the <code>C</code>. Note that <code>clean!</code> is applied to <code>C</code> before computing the hash. This is done to ensure that equal counters give the same hash value.</p><p>May also be invoked as <code>hash(C::Counter, h::Uint)</code>.</p><h2 id="It&#39;s-Associative"><a class="docs-heading-anchor" href="#It&#39;s-Associative">It&#39;s <code>Associative</code></a><a id="It&#39;s-Associative-1"></a><a class="docs-heading-anchor-permalink" href="#It&#39;s-Associative" title="Permalink"></a></h2><p>A <code>Counter</code> is a subtype of <code>Associative</code> and therefore we can use methods such as <code>keys</code> and/or <code>values</code> to get iterators to those items.</p><h2 id="CSV-Printing"><a class="docs-heading-anchor" href="#CSV-Printing">CSV Printing</a><a id="CSV-Printing-1"></a><a class="docs-heading-anchor-permalink" href="#CSV-Printing" title="Permalink"></a></h2><p>The function <code>csv_print</code> writes a <code>Counter</code> to the screen in comma-separated format. This can be readily used for importing into a spreadsheet.</p><pre><code class="nohighlight hljs">julia&gt; C = Counter{Float64}()
+Counter{Float64} with 0 entries
+
+julia&gt; C[3.4]=10
+10
+
+julia&gt; C[2.2]=3
+3
+
+julia&gt; csv_print(C)
+2.2, 3
+3.4, 10</code></pre><h2 id="Counting-in-parallel"><a class="docs-heading-anchor" href="#Counting-in-parallel">Counting in parallel</a><a id="Counting-in-parallel-1"></a><a class="docs-heading-anchor-permalink" href="#Counting-in-parallel" title="Permalink"></a></h2><p>See the <a href="https://github.com/scheinerman/Counters.jl/tree/master/parallel-example">parallel-example</a> directory for an illustration of how to use <code>Counters</code> in multiple parallel processes.</p></article><nav class="docs-footer"><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.5.0 on <span class="colophon-date" title="Sunday 25 August 2024 15:28">Sunday 25 August 2024</span>. Using Julia version 1.10.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
